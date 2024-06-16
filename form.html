@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Survey</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <form id="surveyForm">
+            <h1 class="text-center my-4">Form Survei</h1>
+            <div class="form-group">
+                <label for="name">Nama:</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Tanggal Lahir:</label>
+                <input type="date" class="form-control" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="option">Hari Ke-:</label>
+                <select class="form-control" id="option" required>
+                    <option value="" disabled selected>Pilih salah satu</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Tingkat Kepuasan:</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="Kps1" value="Kurang Puas">
+                    <label class="form-check-label" for="Kps1">Kurang Puas</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="Kps2" value="Cukup Puas">
+                    <label class="form-check-label" for="Kps2">Cukup Puas</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="Kps3" value="Puas">
+                    <label class="form-check-label" for="Kps3">Puas</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="Kps4" value="Sangat Puas">
+                    <label class="form-check-label" for="Kps4">Sangat Puas</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="feedback">Feedback:</label>
+                <textarea class="form-control" id="feedback" rows="3" required></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="displayResult()">Submit</button>
+        </form>
+
+        <div id="result" class="mt-4"></div>
+    </div>
+
+    <script>
+        function displayResult() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const date = document.getElementById('date').value;
+            const option = document.getElementById('option').value;
+            const feedback = document.getElementById('feedback').value;
+            
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            let kepuasan = [];
+            checkboxes.forEach((checkbox) => {
+                kepuasan.push(checkbox.nextElementSibling.textContent);
+            });
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<h3>Hasil Survey</h3>
+                                   <p><strong>Nama:</strong> ${name}</p>
+                                   <p><strong>Email:</strong> ${email}</p>
+                                   <p><strong>Tanggal:</strong> ${date}</p>
+                                   <p><strong>Angkatan yang dipilih:</strong> ${option}</p>
+                                   <p><strong>Tingkat Kepuasan:</strong> ${kepuasan.join(', ')}</p>
+                                   <p><strong>Feedback:</strong> ${feedback}</p>`;
+        }
+    </script>
+</body>
+</html>
